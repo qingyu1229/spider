@@ -1,20 +1,22 @@
 package org.beyong.fetch;
 
-import org.beyong.org.beyong.task.TaskQueue;
+import org.beyong.task.PageQueue;
+import org.beyong.task.URLQueue;
 
 /**
  * Created by 梁擎宇 on 15-6-16.
  */
-public class Fetcher implements Runnable {
+public abstract class Fetcher implements Runnable {
 
-    private TaskQueue queue;
+    protected URLQueue URLQueue;
+    protected PageQueue pageQueue;
 
-    public Fetcher(TaskQueue queue){
-        this.queue=queue;
+    public Fetcher(URLQueue URLQueue,PageQueue pageQueue){
+        this.URLQueue=URLQueue;
+        this.pageQueue=pageQueue;
     }
-    public void fetch(String url) {
-        System.out.println("fetch:" + url);
-    }
+
+    public abstract void fetch(String url);
 
     @Override
     public void run() {

@@ -1,17 +1,19 @@
 package org.beyong.parse;
 
-import org.beyong.org.beyong.task.TaskQueue;
+import org.beyong.task.PageQueue;
+import org.beyong.task.URLQueue;
 
 /**
  * Created by 梁擎宇 on 15-6-16.
  */
-public class Parser implements Runnable {
+public abstract class Parser implements Runnable {
 
+    private URLQueue URLQueue;
+    private PageQueue pageQueue;
 
-    private TaskQueue queue;
-
-    public Parser(TaskQueue queue){
-        this.queue=queue;
+    public Parser(URLQueue URLQueue,PageQueue pageQueue){
+        this.URLQueue=URLQueue;
+        this.pageQueue=pageQueue;
     }
 
     public void parse(String url){

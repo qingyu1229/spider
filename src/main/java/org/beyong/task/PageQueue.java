@@ -1,12 +1,11 @@
-package org.beyong.org.beyong.task;
+package org.beyong.task;
 
-import java.util.Queue;
 import java.util.concurrent.PriorityBlockingQueue;
 
 /**
- * Created by 梁擎宇 on 15-6-16.
+ * Created by 梁擎宇 on 15-6-23.
  */
-public class TaskQueue {
+public class PageQueue {
 
     private static PriorityBlockingQueue<String> queue =new PriorityBlockingQueue<String>();
 
@@ -15,7 +14,6 @@ public class TaskQueue {
     }
 
     public synchronized String get(){
-       return queue.poll();
+        return queue.poll();
     }
-
 }
