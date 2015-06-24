@@ -3,7 +3,6 @@ package org.beyong.fetch;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.util.EntityUtils;
-import org.beyong.parse.ParseData;
 import org.beyong.url.WebURL;
 
 
@@ -38,10 +37,6 @@ public class Page {
      */
     protected String contentCharset;
 
-    /**
-     * The parsed data populated by parsers
-     */
-    protected ParseData parseData;
 
     public Page(WebURL url) {
         this.url = url;
@@ -60,7 +55,6 @@ public class Page {
      * HttpEntity.
      */
     public void load(HttpEntity entity) throws Exception {
-
         contentType = null;
         Header type = entity.getContentType();
         if (type != null) {
@@ -74,21 +68,10 @@ public class Page {
         }
 
         contentCharset = EntityUtils.getContentCharSet(entity);
-
         contentData = EntityUtils.toByteArray(entity);
-
     }
 
-    /**
-     * Returns the parsed data generated for this page by parsers
-     */
-    public ParseData getParseData() {
-        return parseData;
-    }
 
-    public void setParseData(ParseData parseData) {
-        this.parseData = parseData;
-    }
 
     /**
      * Returns the content of this page in binary format.

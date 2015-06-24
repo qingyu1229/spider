@@ -1,5 +1,7 @@
 package org.beyong.parse;
 
+import org.apache.commons.lang3.StringUtils;
+import org.beyong.fetch.Page;
 import org.beyong.task.PageQueue;
 import org.beyong.task.URLQueue;
 
@@ -8,20 +10,28 @@ import org.beyong.task.URLQueue;
  */
 public abstract class Parser implements Runnable {
 
-    private URLQueue URLQueue;
-    private PageQueue pageQueue;
+    protected URLQueue URLQueue;
+    protected PageQueue pageQueue;
 
     public Parser(URLQueue URLQueue,PageQueue pageQueue){
         this.URLQueue=URLQueue;
         this.pageQueue=pageQueue;
     }
 
-    public void parse(String url){
-        System.out.println("parse:"+url);
-    }
+    public abstract void parse(Page page);
+
+
 
     @Override
     public void run() {
 
     }
+
+    protected String convertBytesToString(byte[] contentData){
+
+
+        return null;
+    }
+
+
 }

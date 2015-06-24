@@ -1,5 +1,7 @@
 package org.beyong.task;
 
+import org.beyong.fetch.Page;
+
 import java.util.concurrent.PriorityBlockingQueue;
 
 /**
@@ -7,13 +9,13 @@ import java.util.concurrent.PriorityBlockingQueue;
  */
 public class PageQueue {
 
-    private static PriorityBlockingQueue<String> queue =new PriorityBlockingQueue<String>();
+    private static PriorityBlockingQueue<Page> queue =new PriorityBlockingQueue<Page>();
 
-    public synchronized boolean posh(String url){
-        return  queue.offer(url);
+    public synchronized boolean push(Page page){
+        return  queue.offer(page);
     }
 
-    public synchronized String get(){
+    public synchronized Page get(){
         return queue.poll();
     }
 }

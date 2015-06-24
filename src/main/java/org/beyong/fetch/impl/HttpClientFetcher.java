@@ -8,11 +8,14 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.log4j.Logger;
+import org.apache.log4j.spi.LoggerFactory;
 import org.beyong.fetch.Fetcher;
-import org.beyong.fetch.PageFetchResult;
+import org.beyong.fetch.Page;
 import org.beyong.task.PageQueue;
 import org.beyong.task.URLQueue;
 import org.beyong.url.URLCanonicalizer;
+import org.beyong.url.WebURL;
 
 import java.io.IOException;
 
@@ -29,11 +32,10 @@ public class HttpClientFetcher extends Fetcher {
 
 
     @Override
-    public void fetch(String url) {
-        HttpGet httpGet = new HttpGet(url);
-        PageFetchResult fetchResult = new PageFetchResult();
+    public void fetch(WebURL webURL) {
+        HttpGet httpGet = new HttpGet(webURL.getURL());
         httpGet.addHeader("Accept-Encoding", "gzip");
-
+        Page page=new Page(webURL);
         try {
             HttpResponse response = httpClient.execute(httpGet);
             int statusCode = response.getStatusLine().getStatusCode();
@@ -43,8 +45,9 @@ public class HttpClientFetcher extends Fetcher {
                         Header header = response.getFirstHeader("Location");
                         if (header != null) {
                             String movedToUrl = header.getValue();
-                            movedToUrl = URLCanonicalizer.getCanonicalURL(movedToUrl, url);
-                            URLQueue.posh(movedToUrl);
+                            movedToUrl = URLCanonicalizer.getCanonicalURL(movedToUrl, webURL.getURL());
+                            webURL.setURL(movedToUrl);
+                            URLQueue.push(webURL);
                             // fetchResult.setMovedToUrl(movedToUrl);
                         }
                         //fetchResult.setStatusCode(statusCode);
@@ -52,16 +55,14 @@ public class HttpClientFetcher extends Fetcher {
                     }
                 }else{
                     HttpEntity entity= response.getEntity();
-                    fetchResult.setEntity(entity);
                     //String content= entity.toString();
-
-
+                    page.load(entity);
+                    pageQueue.push(page);
                 }
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     private HttpClient getClient() {
