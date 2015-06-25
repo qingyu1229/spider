@@ -1,6 +1,8 @@
 
 package org.beyong.url;
 
+import org.beyong.fetch.Site;
+
 import java.io.Serializable;
 
 
@@ -19,6 +21,7 @@ public class WebURL implements Serializable {
 	private String path;
 	private String anchor;
 	private byte priority;
+
 
 	/**
 	 * Returns the unique document id assigned to this Url.
@@ -44,6 +47,8 @@ public class WebURL implements Serializable {
 		return url != null && url.equals(otherUrl.getURL());
 
 	}
+
+
 
 	@Override
 	public String toString() {

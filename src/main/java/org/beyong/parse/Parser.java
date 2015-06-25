@@ -20,15 +20,12 @@ public abstract class Parser implements Runnable {
 
     public abstract void parse(Page page);
 
-
-
     @Override
     public void run() {
 
     }
 
     protected String convertBytesToString(byte[] contentData){
-
 
         return null;
     }

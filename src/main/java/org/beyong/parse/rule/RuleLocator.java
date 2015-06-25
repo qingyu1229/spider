@@ -40,12 +40,22 @@ public class RuleLocator {
      * 属性2：cssPath,说明：数据抽取路径，是否可以为空：否
      * 属性3：regex,说明：当使用cssPath抽取不够精确时，使用正则再次抽取，是否可以为空：是
      *
-     *
-     *
-     *
      */
 
+    public static SupportUrlRule getSupportUrlRule(String domain,short depth){
+        SupportUrlRule rule=null;
 
+
+
+        return rule;
+    }
+
+    public static DataRule getDataRule(String domain){
+        DataRule rule=null;
+
+
+        return rule;
+    }
 
 
 }

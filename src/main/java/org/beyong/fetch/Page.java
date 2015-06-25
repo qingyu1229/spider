@@ -5,49 +5,59 @@ import org.apache.http.HttpEntity;
 import org.apache.http.util.EntityUtils;
 import org.beyong.url.WebURL;
 
-
-
 public class Page {
 
     /**
      * The URL of this page.
      */
-    protected WebURL url;
+    private WebURL webURL;
 
     /**
      * The content of this page in binary format.
      */
-    protected byte[] contentData;
+    private byte[] contentData;
 
     /**
      * The ContentType of this page.
      * For example: "text/html; charset=UTF-8"
      */
-    protected String contentType;
+    private String contentType;
 
     /**
      * The encoding of the content.
      * For example: "gzip"
      */
-    protected String contentEncoding;
+    private String contentEncoding;
 
     /**
      * The charset of the content.
      * For example: "UTF-8"
      */
-    protected String contentCharset;
+    private String contentCharset;
 
+    /**
+     * 是否是非目标页面
+     */
+    private boolean supportPage;
 
-    public Page(WebURL url) {
-        this.url = url;
+    public boolean isSupportPage() {
+        return supportPage;
+    }
+
+    public void setSupportPage(boolean supportPage) {
+        this.supportPage = supportPage;
+    }
+
+    public Page(WebURL webURL) {
+        this.webURL = webURL;
     }
 
     public WebURL getWebURL() {
-        return url;
+        return webURL;
     }
 
-    public void setWebURL(WebURL url) {
-        this.url = url;
+    public void setWebURL(WebURL webURL) {
+        this.webURL = webURL;
     }
 
     /**
@@ -69,6 +79,14 @@ public class Page {
 
         contentCharset = EntityUtils.getContentCharSet(entity);
         contentData = EntityUtils.toByteArray(entity);
+    }
+
+    public WebURL getUrl() {
+        return webURL;
+    }
+
+    public void setUrl(WebURL webURL) {
+        this.webURL = webURL;
     }
 
 
