@@ -32,12 +32,16 @@ public class JsoupParser extends Parser {
 
             if(isSupportPage){
                 SupportUrlRule supportUrlRule= RuleLocator.getSupportUrlRule(page.getWebURL().getDomain(),page.getWebURL().getDepth());
-
+                //supportUrlRule.
             }
 
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
     }
+
+
+
+
 
 }

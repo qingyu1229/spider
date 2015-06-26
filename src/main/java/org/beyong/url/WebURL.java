@@ -11,9 +11,6 @@ public class WebURL implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String url;
-
-	private int docid;
-	private int parentDocid;
 	private String parentUrl;
 	private short depth;
 	private String domain;
@@ -23,16 +20,7 @@ public class WebURL implements Serializable {
 	private byte priority;
 
 
-	/**
-	 * Returns the unique document id assigned to this Url.
-	 */
-	public int getDocid() {
-		return docid;
-	}
 
-	public void setDocid(int docid) {
-		this.docid = docid;
-	}
 
 	@Override
 	public boolean equals(Object o) {
@@ -91,17 +79,7 @@ public class WebURL implements Serializable {
 		}
 	}
 
-	/**
-	 * Returns the unique document id of the parent page. The parent page is the
-	 * page in which the Url of this page is first observed.
-	 */
-	public int getParentDocid() {
-		return parentDocid;
-	}
 
-	public void setParentDocid(int parentDocid) {
-		this.parentDocid = parentDocid;
-	}
 
 	/**
 	 * Returns the url of the parent page. The parent page is the page in which

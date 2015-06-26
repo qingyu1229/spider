@@ -81,13 +81,6 @@ public class Page {
         contentData = EntityUtils.toByteArray(entity);
     }
 
-    public WebURL getUrl() {
-        return webURL;
-    }
-
-    public void setUrl(WebURL webURL) {
-        this.webURL = webURL;
-    }
 
 
 
