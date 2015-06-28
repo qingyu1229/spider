@@ -30,9 +30,9 @@ public class HttpClientFetcher extends Fetcher {
         super(URLQueue, pageQueue);
     }
 
-
     @Override
-    public void fetch(WebURL webURL) {
+    public Page fetch(WebURL webURL) {
+        httpClient= HttpClientBuilder.create().build();
         HttpGet httpGet = new HttpGet(webURL.getURL());
         httpGet.addHeader("Accept-Encoding", "gzip");
         Page page=new Page(webURL);
@@ -51,18 +51,18 @@ public class HttpClientFetcher extends Fetcher {
                             // fetchResult.setMovedToUrl(movedToUrl);
                         }
                         //fetchResult.setStatusCode(statusCode);
-                        return;
+                        return null;
                     }
                 }else{
                     HttpEntity entity= response.getEntity();
-                    //String content= entity.toString();
                     page.load(entity);
-                    pageQueue.push(page);
+                    return page;
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     private HttpClient getClient() {

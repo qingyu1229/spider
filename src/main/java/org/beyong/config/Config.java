@@ -1,4 +1,4 @@
-package org.beyong.fetch;
+package org.beyong.config;
 
 /**
  * Created by 梁擎宇 on 15-6-25.
@@ -49,5 +49,12 @@ public class Config {
      */
     private boolean followRedirects = true;
 
+    public static final int FETCHERNUM=5;
+
+    public static final int PARSERNUM=3;
+
+    public static final int PAGEQUEUESIZE=200;
+
+    public static final int URLQUEUESIZE=1000;
 
 }

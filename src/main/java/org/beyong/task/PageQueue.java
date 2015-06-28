@@ -1,5 +1,6 @@
 package org.beyong.task;
 
+import org.beyong.config.Config;
 import org.beyong.fetch.Page;
 
 import java.util.concurrent.PriorityBlockingQueue;
@@ -9,13 +10,19 @@ import java.util.concurrent.PriorityBlockingQueue;
  */
 public class PageQueue {
 
-    private static PriorityBlockingQueue<Page> queue =new PriorityBlockingQueue<Page>();
+    private static PriorityBlockingQueue<Page> queue =new PriorityBlockingQueue<Page>(Config.PAGEQUEUESIZE);
 
     public synchronized boolean push(Page page){
-        return  queue.offer(page);
+        queue.put(page);
+        return true;
     }
 
     public synchronized Page get(){
-        return queue.poll();
+        try {
+            return queue.take();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

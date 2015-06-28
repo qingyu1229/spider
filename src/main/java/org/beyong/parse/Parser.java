@@ -27,46 +27,34 @@ public abstract class Parser implements Runnable {
         this.pageQueue=pageQueue;
     }
 
-    public abstract void parse(Page page);
+    public abstract List<WebURL> parse(Page page);
 
     @Override
     public void run() {
-
+        Page page=pageQueue.get();
+        List<WebURL> webURLList=  parse(page);
+        URLQueue.push(webURLList);
     }
 
-    protected List<WebURL> digUrls(SupportUrlRule supportUrlRule,Document document,Page page){
-        List<WebURL> urlList=new ArrayList<WebURL>();
-        Elements aElements= document.getElementsByTag("a");
-        for(Element element:aElements){
-            String href=element.attr("href");
-            //element.baseUri();
 
-            if(href==null||"#".equals(href)||href.startsWith("#")||href.startsWith("javascript:")){
-                continue;
-            }else{
-
-                WebURL url=new WebURL();
-
-                url.setDepth((short)(page.getWebURL().getDepth()+1));
-                url.setParentUrl(page.getWebURL().getURL());
-                //url.setPriority();
-                url.setURL(href);
-
-
-                //urlList.
-            }
+    protected boolean checkUrl( RuleType ruleType,String rule,String url){
+        boolean bl=false;
+        if(url==null){
+            return false;
         }
-
-
-       /* switch (supportUrlRule.getRuleType()) {
-            RuleType.CONTAINS:
-
-        }*/
-
-
-        return urlList;
+        switch (ruleType) {
+          case  CONTAINS :
+                bl= url.contains(rule);break;
+            case REGEX:
+                bl=  url.matches(rule);break;
+            case STARTWITH:
+                bl=url.startsWith(rule);break;
+            case ENDWITH:
+                bl=url.endsWith(rule);break;
+            case EQUAL:
+                bl=url.equals(rule);break;
+        }
+        return bl;
     }
-
-
 
 }

@@ -17,11 +17,14 @@ public abstract class Fetcher implements Runnable {
         this.pageQueue=pageQueue;
     }
 
-    public abstract void fetch(WebURL url);
+    public abstract Page fetch(WebURL url);
 
     @Override
     public void run() {
-
+        WebURL webURL= URLQueue.get();
+        Page page=  fetch(webURL);
+        if(page!=null){
+            pageQueue.push(page);
+        }
     }
-
 }

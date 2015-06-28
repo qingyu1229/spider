@@ -5,7 +5,7 @@ import org.apache.http.HttpEntity;
 import org.apache.http.util.EntityUtils;
 import org.beyong.url.WebURL;
 
-public class Page {
+public class Page  implements Comparable{
 
     /**
      * The URL of this page.
@@ -131,4 +131,11 @@ public class Page {
         this.contentCharset = contentCharset;
     }
 
+    @Override
+    public int compareTo(Object o) {
+
+
+
+        return 0;
+    }
 }

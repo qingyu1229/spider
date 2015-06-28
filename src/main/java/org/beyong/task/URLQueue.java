@@ -1,7 +1,9 @@
 package org.beyong.task;
 
+import org.beyong.config.Config;
 import org.beyong.url.WebURL;
 
+import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.PriorityBlockingQueue;
 
@@ -10,14 +12,27 @@ import java.util.concurrent.PriorityBlockingQueue;
  */
 public class URLQueue {
 
-    private static PriorityBlockingQueue<WebURL> queue =new PriorityBlockingQueue<WebURL>();
+    private static PriorityBlockingQueue<WebURL> queue =new PriorityBlockingQueue<WebURL>(Config.URLQUEUESIZE);
 
     public synchronized boolean push(WebURL url){
-        return  queue.offer(url);
+        queue.put(url);
+        return true;
+    }
+
+    public synchronized boolean push(List<WebURL> webURLList){
+        for (WebURL webURL:webURLList){
+            push(webURL);
+        }
+        return true;
     }
 
     public synchronized WebURL get(){
-       return queue.poll();
+        try {
+            return queue.take();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }
