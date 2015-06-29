@@ -1,5 +1,8 @@
 package org.beyong.parse.rule;
 
+import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.Table;
+
 /**
  * Created by 梁擎宇 on 15-6-24.
  */
@@ -42,6 +45,9 @@ public class RuleLocator {
      *
      */
 
+    private static Table<String,Integer,SupportUrlRule> supportUrlRuleTable= HashBasedTable.create();
+
+
     public static SupportUrlRule getSupportUrlRule(String domain,short depth){
         SupportUrlRule rule=null;
 
@@ -57,5 +63,10 @@ public class RuleLocator {
         return rule;
     }
 
+
+    public static boolean addSupportUrlRule(SupportUrlRule supportUrlRule,String domain){
+        supportUrlRuleTable.put(domain,Integer.valueOf(supportUrlRule.getDepth()),supportUrlRule);
+        return true;
+    }
 
 }

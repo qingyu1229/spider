@@ -24,6 +24,8 @@ public class Spider {
 
         PageQueue pageQueue=new PageQueue();
         URLQueue urlQueue=new URLQueue();
+
+
         for (int size=0;size< Config.FETCHERNUM;size++){
             Fetcher fetcher=new HttpClientFetcher(urlQueue,pageQueue);
             pool.execute(fetcher);
