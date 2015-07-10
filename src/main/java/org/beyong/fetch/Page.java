@@ -5,7 +5,7 @@ import org.apache.http.HttpEntity;
 import org.apache.http.util.EntityUtils;
 import org.beyong.url.WebURL;
 
-public class Page  implements Comparable{
+public class Page implements Comparable {
 
     /**
      * The URL of this page.
@@ -82,8 +82,6 @@ public class Page  implements Comparable{
     }
 
 
-
-
     /**
      * Returns the content of this page in binary format.
      */
@@ -133,9 +131,7 @@ public class Page  implements Comparable{
 
     @Override
     public int compareTo(Object o) {
-
-
-
-        return 0;
+        Page anotherObject = (Page) o;
+        return anotherObject.getWebURL().getPriority() > this.webURL.getPriority() ? -1 : 1;
     }
 }

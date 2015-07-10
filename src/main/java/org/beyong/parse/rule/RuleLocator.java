@@ -3,6 +3,8 @@ package org.beyong.parse.rule;
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 
+import java.util.HashMap;
+
 /**
  * Created by 梁擎宇 on 15-6-24.
  */
@@ -47,19 +49,15 @@ public class RuleLocator {
 
     private static Table<String,Integer,SupportUrlRule> supportUrlRuleTable= HashBasedTable.create();
 
+    private static HashMap<String,DataRule> dataRuleHashMap=new HashMap<String, DataRule>();
 
     public static SupportUrlRule getSupportUrlRule(String domain,short depth){
-        SupportUrlRule rule=null;
-
-
-
+        SupportUrlRule rule= supportUrlRuleTable.get(domain,depth);
         return rule;
     }
 
     public static DataRule getDataRule(String domain){
-        DataRule rule=null;
-
-
+        DataRule rule=dataRuleHashMap.get(domain);
         return rule;
     }
 
@@ -69,4 +67,7 @@ public class RuleLocator {
         return true;
     }
 
+    public static void addDataRule(String domain,DataRule dataRule) {
+        dataRuleHashMap.put(domain,dataRule);
+    }
 }
