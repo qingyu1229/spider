@@ -13,6 +13,7 @@ public class PageQueue {
     private static PriorityBlockingQueue<Page> queue =new PriorityBlockingQueue<Page>(Config.PAGEQUEUESIZE);
 
     public synchronized boolean push(Page page){
+        System.out.println("-");
         queue.put(page);
         return true;
     }

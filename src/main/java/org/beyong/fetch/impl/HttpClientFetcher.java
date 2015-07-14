@@ -36,12 +36,14 @@ public class HttpClientFetcher extends Fetcher {
         HttpGet httpGet = new HttpGet(webURL.getURL());
         httpGet.addHeader("Accept-Encoding", "gzip");
         Page page=new Page(webURL);
+
         try {
             HttpResponse response = httpClient.execute(httpGet);
             int statusCode = response.getStatusLine().getStatusCode();
             if (statusCode != HttpStatus.SC_OK) {
                 if (statusCode != HttpStatus.SC_NOT_FOUND) {
                     if (statusCode == HttpStatus.SC_MOVED_PERMANENTLY || statusCode == HttpStatus.SC_MOVED_TEMPORARILY) {
+
                         Header header = response.getFirstHeader("Location");
                         if (header != null) {
                             String movedToUrl = header.getValue();
@@ -53,11 +55,11 @@ public class HttpClientFetcher extends Fetcher {
                         //fetchResult.setStatusCode(statusCode);
                         return null;
                     }
-                }else{
-                    HttpEntity entity= response.getEntity();
-                    page.load(entity);
-                    return page;
                 }
+            }else{
+                HttpEntity entity= response.getEntity();
+                page.load(entity);
+                return page;
             }
         } catch (Exception e) {
             e.printStackTrace();

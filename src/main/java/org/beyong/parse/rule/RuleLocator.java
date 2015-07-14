@@ -4,6 +4,7 @@ import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by 梁擎宇 on 15-6-24.
@@ -49,18 +50,16 @@ public class RuleLocator {
 
     private static Table<String,Integer,SupportUrlRule> supportUrlRuleTable= HashBasedTable.create();
 
-    private static HashMap<String,DataRule> dataRuleHashMap=new HashMap<String, DataRule>();
+    private static Table<String,String,DataRule> dataRuleTable=HashBasedTable.create();
 
     public static SupportUrlRule getSupportUrlRule(String domain,short depth){
         SupportUrlRule rule= supportUrlRuleTable.get(domain,depth);
         return rule;
     }
 
-    public static DataRule getDataRule(String domain){
-        DataRule rule=dataRuleHashMap.get(domain);
-        return rule;
+    public static Map<String,DataRule> getDataRule(String domain){
+       return dataRuleTable.row(domain);
     }
-
 
     public static boolean addSupportUrlRule(SupportUrlRule supportUrlRule,String domain){
         supportUrlRuleTable.put(domain,Integer.valueOf(supportUrlRule.getDepth()),supportUrlRule);
@@ -68,6 +67,6 @@ public class RuleLocator {
     }
 
     public static void addDataRule(String domain,DataRule dataRule) {
-        dataRuleHashMap.put(domain,dataRule);
+        dataRuleTable.put(domain,dataRule.getName(),dataRule);
     }
 }

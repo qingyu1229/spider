@@ -32,6 +32,7 @@ public abstract class Parser implements Runnable {
     @Override
     public void run() {
         Page page=pageQueue.get();
+        System.out.println("Parsing page:"+page.getWebURL().getURL());
         List<WebURL> webURLList=  parse(page);
         URLQueue.push(webURLList);
     }
