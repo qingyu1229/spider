@@ -57,6 +57,8 @@ public class HttpClientFetcher extends Fetcher {
                     }
                 }
             }else{
+                System.out.println(statusCode);
+
                 HttpEntity entity= response.getEntity();
                 page.load(entity);
                 return page;

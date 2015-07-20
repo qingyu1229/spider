@@ -14,19 +14,19 @@ public class URLQueue {
 
     private static PriorityBlockingQueue<WebURL> queue =new PriorityBlockingQueue<WebURL>(Config.URLQUEUESIZE);
 
-    public synchronized boolean push(WebURL url){
+    public  boolean push(WebURL url){
         queue.put(url);
         return true;
     }
 
-    public synchronized boolean push(List<WebURL> webURLList){
+    public  boolean push(List<WebURL> webURLList){
         for (WebURL webURL:webURLList){
             push(webURL);
         }
         return true;
     }
 
-    public synchronized WebURL get(){
+    public  WebURL get(){
         try {
             return queue.take();
         } catch (InterruptedException e) {
