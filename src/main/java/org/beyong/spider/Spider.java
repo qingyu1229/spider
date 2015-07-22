@@ -62,7 +62,6 @@ public class Spider {
 
         RuleLocator.addSupportUrlRule(supportUrlRule,"news.ncnews.com.cn");
 
-
     }
 
 

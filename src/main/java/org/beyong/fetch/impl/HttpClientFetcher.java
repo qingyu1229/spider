@@ -8,6 +8,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 import org.apache.log4j.spi.LoggerFactory;
 import org.beyong.fetch.Fetcher;
@@ -58,7 +59,6 @@ public class HttpClientFetcher extends Fetcher {
                 }
             }else{
                 System.out.println(statusCode);
-
                 HttpEntity entity= response.getEntity();
                 page.load(entity);
                 return page;

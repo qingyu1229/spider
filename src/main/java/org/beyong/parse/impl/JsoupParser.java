@@ -12,6 +12,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -23,16 +25,17 @@ import java.util.Set;
  * Created by 梁擎宇 on 15-6-24.
  */
 public class JsoupParser extends Parser {
-
+    private static final Logger logger = LoggerFactory.getLogger(JsoupParser.class);
     public JsoupParser(URLQueue URLQueue, PageQueue pageQueue) {
         super(URLQueue, pageQueue);
     }
 
     @Override
     public List<WebURL> parse(Page page) {
-        //System.out.println("==============================");
+        logger.info("Parsing page:"+page.getWebURL().getURL());
         try {
             String content=new String(page.getContentData(),page.getContentCharset());
+            logger.info(content);
             Document doc= Jsoup.parse(content,page.getWebURL().getURL());
             //page.getWebURL().getSite().gets
 
