@@ -48,14 +48,22 @@ public class RuleLocator {
      *
      */
 
+
     private static Table<String,Integer,SupportUrlRule> supportUrlRuleTable= HashBasedTable.create();
 
     private static Table<String,String,DataRule> dataRuleTable=HashBasedTable.create();
 
     public static SupportUrlRule getSupportUrlRule(String domain,short depth){
-        SupportUrlRule rule= supportUrlRuleTable.get(domain,depth);
+        SupportUrlRule rule= supportUrlRuleTable.get(domain,Integer.valueOf(depth));
         return rule;
     }
+
+    public static boolean isSupportPage(String domain,short depth){
+        System.out.println(domain+"   "+depth);
+
+       return supportUrlRuleTable.contains(domain,Integer.valueOf(depth));
+    }
+
 
     public static Map<String,DataRule> getDataRule(String domain){
        return dataRuleTable.row(domain);

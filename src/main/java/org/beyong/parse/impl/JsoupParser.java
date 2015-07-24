@@ -25,7 +25,7 @@ import java.util.Set;
  * Created by 梁擎宇 on 15-6-24.
  */
 public class JsoupParser extends Parser {
-    private static final Logger logger = LoggerFactory.getLogger(JsoupParser.class);
+    private  final Logger logger = LoggerFactory.getLogger(JsoupParser.class);
     public JsoupParser(URLQueue URLQueue, PageQueue pageQueue) {
         super(URLQueue, pageQueue);
     }
@@ -35,19 +35,17 @@ public class JsoupParser extends Parser {
         logger.info("Parsing page:"+page.getWebURL().getURL());
         try {
             String content=new String(page.getContentData(),page.getContentCharset());
-            logger.info(content);
             Document doc= Jsoup.parse(content,page.getWebURL().getURL());
-            //page.getWebURL().getSite().gets
 
             boolean isSupportPage=page.isSupportPage();
 
             if(isSupportPage){
-                SupportUrlRule supportUrlRule= RuleLocator.getSupportUrlRule(page.getWebURL().getDomain(),page.getWebURL().getDepth());
+                SupportUrlRule supportUrlRule= RuleLocator.getSupportUrlRule(page.getWebURL().getAbsDomain(),page.getWebURL().getDepth());
                 //supportUrlRule.
-                System.out.println("SupportUrl :"+page.getWebURL().getURL());
+                //System.out.println("SupportUrl :"+page.getWebURL().getURL());
                return digUrls(supportUrlRule,doc,page);
             }else{
-                String domain=page.getWebURL().getDomain();
+                String domain=page.getWebURL().getAbsDomain();
                 Map<String,DataRule> dataRuleMap= RuleLocator.getDataRule(domain);
                 Set<String> keys= dataRuleMap.keySet();
                 for(String key:keys){
@@ -69,6 +67,10 @@ public class JsoupParser extends Parser {
         List<WebURL> urlList=new ArrayList<WebURL>();
         Elements aElements= document.getElementsByTag("a");
         for(Element element:aElements){
+            if(!isLegalATag(element)){
+                continue;
+            }
+
             String href=element.absUrl("href");
             if(href!=null&&href.startsWith("http://")&&checkUrl(supportUrlRule.getRuleType(),supportUrlRule.getRule(),href)){
                 WebURL url=new WebURL();
@@ -76,6 +78,7 @@ public class JsoupParser extends Parser {
                 url.setParentUrl(page.getWebURL().getURL());
                 //url.setPriority();
                 url.setURL(href);
+                logger.info(href);
                 urlList.add(url);
             }
         }

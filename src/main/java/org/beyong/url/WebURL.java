@@ -1,6 +1,7 @@
 
 package org.beyong.url;
 
+import org.apache.commons.lang3.StringUtils;
 import org.beyong.fetch.Site;
 
 import java.io.Serializable;
@@ -106,6 +107,16 @@ public class WebURL implements Comparable {
      */
     public String getDomain() {
         return domain;
+    }
+
+    public String getAbsDomain(){
+        StringBuilder accum=new StringBuilder();
+        if(!StringUtils.isBlank(subDomain)){
+            accum.append(subDomain);
+            accum.append(".");
+        }
+        accum.append(domain);
+        return String.valueOf(accum);
     }
 
     public String getSubDomain() {

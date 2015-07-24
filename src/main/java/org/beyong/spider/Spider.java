@@ -54,7 +54,7 @@ public class Spider {
 
         SupportUrlRule supportUrlRule=new SupportUrlRule();
         supportUrlRule.setDepth(1);
-        supportUrlRule.setRuleType(RuleType.STARTWITH);
+        supportUrlRule.setRuleType(RuleType.REGEX);
         supportUrlRule.setRule("http://news.ncnews.com.cn/ncxw/jrnc/\\d{4}-\\d{2}/\\d{1,2}/content_\\d{1,9}.htm");
 
         RuleLocator.addDataRule("news.ncnews.com.cn",titleRule);

@@ -57,4 +57,18 @@ public abstract class Parser implements Runnable {
         return bl;
     }
 
+    protected boolean isLegalATag(Element element){
+        if(!element.hasAttr("href")){
+            return false;
+        }else{
+            String href=element.attr("href");
+            if("javascript:void(0)".equals(href)){
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+
 }

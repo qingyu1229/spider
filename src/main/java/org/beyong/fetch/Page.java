@@ -3,6 +3,7 @@ package org.beyong.fetch;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.util.EntityUtils;
+import org.beyong.parse.rule.RuleLocator;
 import org.beyong.url.WebURL;
 
 public class Page implements Comparable {
@@ -50,6 +51,7 @@ public class Page implements Comparable {
 
     public Page(WebURL webURL) {
         this.webURL = webURL;
+        this.supportPage= RuleLocator.isSupportPage(webURL.getAbsDomain(),webURL.getDepth());
     }
 
     public WebURL getWebURL() {

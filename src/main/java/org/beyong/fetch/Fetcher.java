@@ -22,10 +22,8 @@ public abstract class Fetcher implements Runnable {
     @Override
     public void run() {
         WebURL webURL= URLQueue.get();
-        System.out.println("fetching url:"+webURL.getURL());
         Page page=  fetch(webURL);
        // System.out.println(page.getWebURL().getURL());
-
         if(page!=null){
             //System.out.println("-");
             pageQueue.push(page);
